@@ -1,0 +1,16 @@
+<?php
+    require_once(HOME_DIR . 'admi/classes/apis/apiaction.class.php');
+
+class ScreenshotSetMobile extends ApiAction
+{
+    public function process() : bool
+    {
+        $img_obj = json_decode($_POST["x"], false);
+        if($this->dbo->updateColumn("posts", "opti_thumb", $img_obj->mbposter, "post_id", $img_obj->post_id, true )) {
+            $this->return_text = "OK";
+        } else {
+            $this->return_text = "Error - table row not updated, post_id was " . $img_obj->post_id;
+        }
+        return false;
+    }
+}
